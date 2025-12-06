@@ -4,27 +4,40 @@ dotenv.config({
     path:".env"
 })
 import cors from "cors"
+import router from "./routes/productList.routes.js";
 
 const app = express();
 app.use(
   cors({
-    origin: "*", // ⚠️temporary
+    origin: `${process.env.FRONTEND_URL}`, // ⚠️temporary
     methods: "GET,POST,PUT,DELETE",
-    allowedHeaders: "Content-Type,Authorization",
+   
   })
 );app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ limit: "16mb", extended: true }));
 app.use(express.static("public"));
 
 
+const PORT = process.env.PORT || 3000;
+
+
+
+// health route
 app.get("/", (req, res) => {
-  res.send("Backend is running...");
+  res.send("Perfume API is running 🚀");
 });
 
+// product list routes
+app.use("/product-lists", router);
 
-
-export default function startServer() {
-  app.listen(process.env.PORT||3000, () => {
-    console.log("server started");
-  });
+// connect DB & start server
+ export default async function startServer() {
+  try {
+      app.listen(PORT, () => {
+      console.log(`✅ Server running on http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ Failed to start server:", error.message);
+    process.exit(1);
+  }
 }
