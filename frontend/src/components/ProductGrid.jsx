@@ -22,8 +22,8 @@ export default function ProductGrid() {
        
 
         const endpoint = islatest
-          ? `${"http://localhost:3000"}/product-lists/latest`
-          : `${"http://localhost:3000"}/product-lists/featured`;
+          ? `${"https://perfume-shop-five.vercel.app/"}/product-lists/latest`
+          : `${"https://perfume-shop-five.vercel.app/"}/product-lists/featured`;
 
         const res = await axios.get(endpoint);
         setListData(res.data);
