@@ -2,25 +2,28 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import ProductCard from "./ProductCard";
+import CallToActionBanner from "./CallToActionBanner";
 
 export default function ProductGrid() {
-  const { category } = useParams(); // "/" => undefined, "/trending" => "trending"
-  const isTrending = Boolean(category); // any non-empty category → trending
-  // if you want only /trending as trending, use: const isTrending = category === "trending";
+  const { category } = useParams(); // "/" => undefined, "/latest" => "latest"
+  const islatest = Boolean(category); // any non-empty category → latest
+  // if you want only /latest as latest, use: const islatest = category === "latest";
 
   const [listData, setListData] = useState(null); // { title, products }
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
+    
     async function loadProducts() {
       try {
         setLoading(true);
         setError("");
+       
 
-        const endpoint = isTrending
-          ? `${import.meta.env.VITE_BACKEND_URL}/product-lists/trending`
-          : `${import.meta.env.VITE_BACKEND_URL}/product-lists/featured`;
+        const endpoint = islatest
+          ? `${"http://localhost:3000"}/product-lists/latest`
+          : `${"http://localhost:3000"}/product-lists/featured`;
 
         const res = await axios.get(endpoint);
         setListData(res.data);
@@ -33,12 +36,13 @@ export default function ProductGrid() {
     }
 
     loadProducts();
-  }, [isTrending]);
+  }, [islatest]);
 
   const heading =
-    listData?.title || (isTrending ? "Trending Products" : "Featured Products");
-
+    listData?.title || (islatest ? "latest Products" : "Featured Products");
+ 
   return (
+    
     <section
       className="
         w-full px-4 py-10 h-full

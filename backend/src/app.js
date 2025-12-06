@@ -5,6 +5,7 @@ dotenv.config({
 })
 import cors from "cors"
 import router from "./routes/productList.routes.js";
+import productRoutes from "./routes/product.routes.js";
 
 const app = express();
 app.use(
@@ -29,6 +30,10 @@ app.get("/", (req, res) => {
 
 // product list routes
 app.use("/product-lists", router);
+
+//product routes
+app.use("/product", productRoutes);
+
 
 // connect DB & start server
  export default async function startServer() {

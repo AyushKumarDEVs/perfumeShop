@@ -10,15 +10,19 @@ const HomePage = () => {
       {/* Fixed Navbar */}
       <div className="fixed top-0 left-0 w-full z-50">
         <Navbar />
+       
+          
+          <div>
+          <CallToActionBanner/>
+        </div>
+        
       </div>
 
       {/* Scrollable Outlet Content */}
       <div className="pt-[72px] h-full overflow-y-auto scrollbar-none">
         {/* 72px = navbar height (adjust if your navbar height is different) */}
         <Outlet />
-        <div>
-          <CallToActionBanner/>
-        </div>
+        
         
       </div>
       <Footer/>

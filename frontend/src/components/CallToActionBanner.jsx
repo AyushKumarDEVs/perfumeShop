@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CallToActionBanner({
   title = "Explore the Latest Collection",
@@ -6,13 +7,16 @@ export default function CallToActionBanner({
   primaryText = "Shop Now",
   secondaryText = "View Offers",
   image = "/src/assets/products/perfume.png",
-  onPrimary = () => {},
+  onPrimary = () => {
+
+  },
   onSecondary = () => {},
 }) {
   const [open, setOpen] = useState(true);
   const [visible, setVisible] = useState(false);      // NEW → for banner appearance animation
   const [pullUp, setPullUp] = useState(false);        // internal animation
-
+   const navigate = useNavigate();
+    
   // Animate banner entrance + delayed panel pull for mobile
   useEffect(() => {
     setTimeout(() => setVisible(true), 50); // slight show delay for smooth entrance
@@ -105,7 +109,11 @@ export default function CallToActionBanner({
 
             <div className="mt-3 flex items-center justify-center gap-3">
               <button
-                onClick={onPrimary}
+                onClick={()=>{
+                  navigate(`/trending`)
+                  setOpen(false);
+
+                }}
                 className="
                   px-4 py-2 rounded-full text-sm font-medium
                   bg-white text-gray-900
@@ -115,7 +123,11 @@ export default function CallToActionBanner({
                 {primaryText}
               </button>
               <button
-                onClick={onSecondary}
+                onClick={()=>{
+                  navigate(`/trending`)
+                  setOpen(false);
+
+                }}
                 className="
                   px-4 py-2 rounded-full text-sm font-medium
                   border border-white/60 text-white

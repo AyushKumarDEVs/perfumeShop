@@ -39,23 +39,23 @@ async function seedProductLists() {
 
     console.log(`📦 Found ${products.length} products in DB`);
 
-    // 2. Shuffle and pick products for featured & trending
+    // 2. Shuffle and pick products for featured & Latest
     const shuffled = shuffleArray(products);
 
     const featuredProducts = shuffled.slice(0, Math.min(8, shuffled.length)); // up to 8
-    const trendingProducts = shuffled.slice(
+    const LatestProducts = shuffled.slice(
       Math.min(8, shuffled.length),
       Math.min(16, shuffled.length)
     ); // next up to 8
 
     const featuredIds = featuredProducts.map((p) => p._id);
-    const trendingIds = trendingProducts.map((p) => p._id);
+    const LatestIds = LatestProducts.map((p) => p._id);
 
     // 3. Remove old lists with same titles (optional but cleaner)
     await ProductList.deleteMany({
-      title: { $in: ["Featured Products", "Trending Products"] },
+      title: { $in: ["Featured Products", "Latest Products"] },
     });
-    console.log("🗑 Old Featured/Trending lists removed");
+    console.log("🗑 Old Featured/Latest lists removed");
 
     // 4. Create new lists
     const createdLists = await ProductList.insertMany([
@@ -64,13 +64,13 @@ async function seedProductLists() {
         productsArray: featuredIds,
       },
       {
-        title: "Trending Products",
-        productsArray: trendingIds.length ? trendingIds : featuredIds, // fallback if less products
+        title: "Latest Products",
+        productsArray: LatestIds.length ? LatestIds : featuredIds, // fallback if less products
       },
     ]);
 
     console.log(
-      `🎉 Created ${createdLists.length} lists: Featured (${featuredIds.length}), Trending (${trendingIds.length || featuredIds.length})`
+      `🎉 Created ${createdLists.length} lists: Featured (${featuredIds.length}), Latest (${LatestIds.length || featuredIds.length})`
     );
 
     process.exit(0);

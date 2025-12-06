@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -6,11 +7,14 @@ export default function Navbar() {
     if (typeof window === "undefined") return "light";
     const saved = localStorage.getItem("theme");
     if (saved === "dark" || saved === "light") return saved;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
   });
 
   const panelRef = useRef(null);
   const btnRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (theme === "dark") document.documentElement.classList.add("dark");
@@ -42,9 +46,9 @@ export default function Navbar() {
   }, [open]);
 
   const navLinks = [
-    { name: "Home", href: "#" },
-    { name: "What's New", href: "#" },
-    { name: "Contact Us", href: "#" },
+    { name: "Home", href: "/" },
+    { name: "What's New", href: "/latest" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   function toggleTheme() {
@@ -57,24 +61,24 @@ export default function Navbar() {
         <div className="w-full py-4 flex items-center justify-between">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="#" className="flex items-center gap-3">
+            <Link to="/" className="flex items-center gap-3">
               <span className="inline-flex items-center justify-center h-10 w-10 rounded-md bg-indigo-600 text-white font-bold">
                 B
               </span>
               <span className="text-lg font-semibold text-white">Olcademy</span>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Nav */}
           <div className="hidden md:flex md:items-center md:space-x-6">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 className="text-gray-300 hover:text-indigo-400 px-2 py-1 rounded-md transition-colors text-sm font-medium"
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
 
             {/* Theme toggle */}
@@ -133,17 +137,19 @@ export default function Navbar() {
         {open && (
           <div
             ref={panelRef}
-            className="md:hidden bg-gray-800 rounded-lg shadow-lg px-4 py-5 mb-4 display: block;"
+            className="md:hidden bg-gray-800 rounded-lg shadow-lg px-4 py-5 mb-4 block"
           >
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.name}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="block text-gray-200 hover:text-indigo-400 px-2 py-2 rounded-md text-base font-medium"
+                onClick={() => {
+                  navigate(link.href);
+                  setOpen(false);
+                }}
+                className="block w-full text-left text-gray-200 hover:text-indigo-400 px-2 py-2 rounded-md text-base font-medium"
               >
                 {link.name}
-              </a>
+              </button>
             ))}
           </div>
         )}

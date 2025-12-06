@@ -13,7 +13,7 @@ const router = createBrowserRouter([
     Component: HomePage,
     children: [
       {
-        path:'/',
+        index: true,
         Component: ProductGrid,
       },
       {
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         Component: ProductGrid,
       },
       {
-        path:'/product/:productId',
+        path:'/product/:id',
         Component: ProductPage,
       }
     ]

@@ -23,23 +23,23 @@ export async function getFeaturedProducts(req, res) {
   }
 }
 
-// GET /api/product-lists/trending
-export async function getTrendingProducts(req, res) {
+// GET /api/product-lists/Latest
+export async function getLatestProducts(req, res) {
   try {
-    const trendingList = await ProductList.findOne({
-      title: "Trending Products",
+    const LatestList = await ProductList.findOne({
+      title: "Latest Products",
     }).populate("productsArray");
 
-    if (!trendingList) {
-      return res.status(404).json({ message: "Trending products list not found" });
+    if (!LatestList) {
+      return res.status(404).json({ message: "Latest products list not found" });
     }
 
     return res.json({
-      title: trendingList.title,
-      products: trendingList.productsArray,
+      title: LatestList.title,
+      products: LatestList.productsArray,
     });
   } catch (error) {
-    console.error("Error fetching trending products:", error);
+    console.error("Error fetching Latest products:", error);
     return res.status(500).json({ message: "Server error" });
   }
 }
