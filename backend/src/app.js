@@ -10,7 +10,7 @@ import productRoutes from "./routes/product.routes.js";
 const app = express();
 app.use(
   cors({
-    origin: `${process.env.FRONTEND_URL}`, // ⚠️temporary
+    origin: `${process.env.FRONTEND_URL}`, 
     methods: "GET,POST,PUT,DELETE",
    
   })
