@@ -17,6 +17,10 @@ const router = createBrowserRouter([
         Component: ProductGrid,
       },
       {
+        path:'/:category',
+        Component: ProductGrid,
+      },
+      {
         path:'/product/:productId',
         Component: ProductPage,
       }
