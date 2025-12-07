@@ -21,9 +21,9 @@ export default function ProductGrid() {
         setError("");
        
 
-        const endpoint = islatest
-          ? `${"/api"}/product-lists/latest`
-          : `${"/api"}/product-lists/featured`;
+      const endpoint = islatest
+          ? `${"https://perfumeshop-backend.onrender.com"}/product-lists/latest`
+          : `${"https://perfumeshop-backend.onrender.com"}/product-lists/featured`;
 
         const res = await axios.get(endpoint);
         setListData(res.data);
