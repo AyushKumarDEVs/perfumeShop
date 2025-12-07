@@ -20,7 +20,7 @@ export default function ProductPage() {
         setError("");
 
         // match your backend route
-        const res = await axios.get(`https://perfume-shop-five.vercel.app/product/${id}`);
+        const res = await axios.get(`/api/product/${id}`);
 
         // your API: { product: {...} }
         const productFromApi = res.data?.product || res.data;
