@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import image from "../assets/products/perfume-1.png";
 
 export default function CallToActionBanner({
   title = "Explore the Latest Collection",
   subtitle = "Fresh arrivals, exclusive drops & limited-time deals",
   primaryText = "Shop Now",
   secondaryText = "View Offers",
-  image = "/src/assets/products/perfume.png",
   onPrimary = () => {
 
   },
